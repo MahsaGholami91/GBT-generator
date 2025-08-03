@@ -12,17 +12,17 @@ export default function ChatPage() {
   const addMessage = useChatStore((state) => state.addMessage);
   const activeChatId = useChatStore((state) => state.activeChatId);
 
-  // اگر چتی فعال نیست، یکی بساز
+  // create a new chat if no active chat exists
   useEffect(() => {
     if (!activeChatId) {
-      addChat('مکالمه جدید');
+      addChat('New Chat');
     }
   }, [activeChatId, addChat]);
 
   const handleSend = async (userInput: string) => {
     if (!activeChatId) return;
 
-    // پیام کاربر رو اضافه کن
+    // Add user message
     const userMessage = {
       id: uuidv4(),
       role: 'user',
@@ -49,14 +49,14 @@ export default function ChatPage() {
       const errorMessage = {
         id: uuidv4(),
         role: 'assistant',
-        content: '❌ خطایی در دریافت پاسخ رخ داد.',
+        content: '❌ Something went wrong.',
       };
       addMessage(activeChatId, errorMessage);
     }
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       <div
         style={{
           flex: 1,

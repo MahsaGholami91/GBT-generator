@@ -2,6 +2,7 @@
 
 import { useChatStore } from '../store/chatStore';
 import styles from './Sidebar.module.css';
+import { useState, useEffect } from 'react';
 
 const Sidebar = () => {
   const chats = useChatStore((state) => state.chats);
@@ -9,31 +10,51 @@ const Sidebar = () => {
   const addChat = useChatStore((state) => state.addChat);
   const activeChatId = useChatStore((state) => state.activeChatId);
 
-  return (
-    <aside className={styles.sidebar}>
-      <h2 className={styles.title}>📚 مکالمه‌ها</h2>
+  const [isOpen, setIsOpen] = useState(false);
 
+  // Handle window resize to toggle sidebar visibility
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768) setIsOpen(true);
+      else setIsOpen(false);
+    };
+
+    handleResize(); // first load
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return (
+    <>
+      {/* Toggle button for mobile */}
       <button
-        className={styles.newButton}
-        onClick={() => addChat('مکالمه جدید')}
+        onClick={() => setIsOpen((prev) => !prev)}
+        className={styles.toggleButton}
       >
-        + مکالمه جدید
+        ☰
       </button>
 
-      <ul className={styles.list}>
-        {chats.map((chat) => (
-          <li
-            key={chat.id}
-            className={`${styles.item} ${
-              chat.id === activeChatId ? styles.active : ''
-            }`}
-            onClick={() => setActiveChat(chat.id)}
-          >
-            {chat.title}
-          </li>
-        ))}
-      </ul>
-    </aside>
+      {/* Sidebar */}
+      <aside className={`${styles.sidebar} ${isOpen ? styles.open : ''}`}>
+        <h2 className={styles.title}>Conversations</h2>
+
+        <button className={styles.newButton} onClick={() => addChat('New Chat')}>
+          + New Chat
+        </button>
+
+        <ul className={styles.list}>
+          {chats.map((chat) => (
+            <li
+              key={chat.id}
+              className={`${styles.item} ${chat.id === activeChatId ? styles.active : ''}`}
+              onClick={() => setActiveChat(chat.id)}
+            >
+              {chat.title}
+            </li>
+          ))}
+        </ul>
+      </aside>
+    </>
   );
 };
 

@@ -47,7 +47,7 @@ addMessage: (chatId, message) => {
       const isFirstMessage = chat.messages.length === 0;
       const newTitle =
         isFirstMessage && message.role === 'user'
-          ? message.content.slice(0, 30) // حداکثر ۳۰ کاراکتر
+          ? message.content.slice(0, 30) // Limit title to 30 chars
           : chat.title;
 
       return {

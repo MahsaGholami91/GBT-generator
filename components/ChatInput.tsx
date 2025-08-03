@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import styles from './ChatInput.module.css';
 
 interface Props {
   onSend: (message: string) => void;
@@ -25,33 +26,17 @@ export default function ChatInput({ onSend }: Props) {
   };
 
   return (
-    <div style={{ display: 'flex', gap: '0.5rem' }}>
+    <div className={styles.container}>
       <input
         type="text"
         value={input}
-        placeholder="پیام خود را بنویسید..."
+        placeholder="Type your message..."
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={handleKeyDown}
-        style={{
-          flex: 1,
-          padding: '0.75rem',
-          borderRadius: '8px',
-          border: '1px solid #ccc',
-          fontSize: '1rem',
-        }}
+        className={styles.input}
       />
-      <button
-        onClick={handleSubmit}
-        style={{
-          padding: '0.75rem 1rem',
-          borderRadius: '8px',
-          backgroundColor: '#007bff',
-          color: 'white',
-          border: 'none',
-          cursor: 'pointer',
-        }}
-      >
-        ارسال
+      <button onClick={handleSubmit} className={styles.button}>
+        Send
       </button>
     </div>
   );

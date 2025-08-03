@@ -5,7 +5,7 @@ const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-// فقط POST
+//  POST
 export async function POST(req) {
   try {
     const { prompt } = await req.json();

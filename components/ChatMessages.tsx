@@ -1,25 +1,23 @@
 'use client';
 
 import { useChatStore } from '@/store/chatStore';
+import styles from './ChatMessages.module.css';
 
 const ChatMessages = () => {
   const activeChat = useChatStore((state) => state.getActiveChat());
 
   if (!activeChat) {
-    return <p style={{ textAlign: 'center' }}>هنوز هیچ مکالمه‌ای شروع نشده است.</p>;
+    return <p className={styles.empty}>No conversation started yet.</p>;
   }
 
   return (
-    <div>
+    <div className={styles.messages}>
       {activeChat.messages.map((msg) => (
         <div
           key={msg.id}
-          style={{
-            marginBottom: '1rem',
-            textAlign: msg.role === 'user' ? 'right' : 'left',
-          }}
+          className={`${styles.message} ${msg.role === 'user' ? styles.user : styles.assistant}`}
         >
-          <b>{msg.role === 'user' ? 'شما' : 'ربات'}:</b> {msg.content}
+          {msg.content}
         </div>
       ))}
     </div>

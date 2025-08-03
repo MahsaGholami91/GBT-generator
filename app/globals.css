@@ -1,28 +1,29 @@
-/* Reset پایه */
+/* Reset  */
 * { box-sizing: border-box; }
 html, body { height: 100%; }
 body {
   margin: 0;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   color: #fff;
-  background: #343541; /* پس‌زمینه شبیه ChatGPT */
+  background: #343541; /* ChatGPT */
+  height: 100%;
 }
 
-/* Layout دو ستونه: چت + سایدبار راست */
+/* Layout  */
 .layout {
   display: grid;
   grid-template-columns: 1fr 300px;
   grid-template-rows: 100vh;
 }
 
-/* سایدبار در موبایل پایین بره (اختیاری: می‌تونی مخفیش کنی) */
+/* */
 @media (max-width: 900px) {
   .layout {
     grid-template-columns: 1fr;
     grid-template-rows: auto auto;
   }
   .sidebar {
-    order: -1; /* بیاد بالا یا پایین، به دلخواه */
+    order: -1; /*  */
   }
 }
 
@@ -156,7 +157,7 @@ body {
 }
 .sidebar__list li:hover { background: #2a2b31; }
 
-/* Alert (خطا) */
+/* Alert  */
 .alert {
   margin: 8px 12px 0;
   padding: 10px 12px;
