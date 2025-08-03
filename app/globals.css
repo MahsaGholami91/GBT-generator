@@ -1,26 +1,180 @@
-@import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Reset پایه */
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: #fff;
+  background: #343541; /* پس‌زمینه شبیه ChatGPT */
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Layout دو ستونه: چت + سایدبار راست */
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  grid-template-rows: 100vh;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* سایدبار در موبایل پایین بره (اختیاری: می‌تونی مخفیش کنی) */
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+  }
+  .sidebar {
+    order: -1; /* بیاد بالا یا پایین، به دلخواه */
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Chat column */
+.chat {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #2a2b31;
 }
+.chat__header {
+  background: #202123;
+  border-bottom: 1px solid #2a2b31;
+  padding: 12px 16px;
+}
+.chat__header h1 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.chat__history {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+}
+.chat__empty {
+  opacity: 0.7;
+  text-align: center;
+  margin-top: 24px;
+}
+
+/* Message bubbles */
+.chat__block { margin-bottom: 18px; }
+
+.msg {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 8px 0;
+}
+
+.msg__avatar { font-size: 22px; }
+
+.msg__bubble {
+  background: #444654;
+  padding: 10px 12px;
+  border-radius: 8px;
+  max-width: min(80%, 900px);
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.45;
+  color: #eaeaea;
+}
+
+.msg--ai .msg__bubble { background: #343541;  border: 1px solid #2a2b31; }
+
+/* Input row */
+.chat__input {
+  display: grid;
+  grid-template-columns: 1fr auto auto auto;
+  gap: 8px;
+  padding: 12px;
+  border-top: 1px solid #2a2b31;
+  background: #40414f;
+}
+.chat__input input {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #2a2b31;
+  background: #3a3b46;
+  color: #fff;
+  outline: none;
+}
+.chat__input input::placeholder { color: #9aa0a6; }
+
+.chat__input button {
+  padding: 0 16px;
+  border: none;
+  border-radius: 8px;
+  background: #10a37f;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+}
+.chat__input button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.btn--secondary { background: #5865f2; }
+.btn--danger { background: #ef4444; }
+
+/* Sidebar (History) */
+.sidebar {
+  background: #202123;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid #2a2b31;
+}
+.sidebar__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-bottom: 1px solid #2a2b31;
+}
+.sidebar__header h3 {
+  margin: 0;
+  font-size: 14px;
+}
+.btn.btn--tiny {
+  background: #3a3b46;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.sidebar__list {
+  list-style: none;
+  margin: 0;
+  padding: 8px 0;
+  overflow-y: auto;
+  flex: 1;
+}
+.sidebar__list li {
+  padding: 10px 14px;
+  border-bottom: 1px solid #2a2b31;
+  cursor: pointer;
+  color: #eaeaea;
+}
+.sidebar__list li:hover { background: #2a2b31; }
+
+/* Alert (خطا) */
+.alert {
+  margin: 8px 12px 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+.alert--error {
+  background: #b91c1c;
+}
+
+/* Spinner */
+.spinner {
+  border: 3px solid rgba(255,255,255,0.25);
+  border-top-color: #fff;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
