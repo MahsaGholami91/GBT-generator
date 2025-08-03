@@ -1,34 +1,21 @@
 'use client';
 
-import { useEffect } from 'react';
 import { useChatStore } from '../store/chatStore';
 import ChatMessages from '../components/ChatMessages';
 import ChatInput from '../components/ChatInput';
 import { v4 as uuidv4 } from 'uuid';
 
 export default function ChatPage() {
-  const activeChat = useChatStore((state) => state.getActiveChat());
-  const addChat = useChatStore((state) => state.addChat);
   const addMessage = useChatStore((state) => state.addMessage);
-  const activeChatId = useChatStore((state) => state.activeChatId);
-
-  // create a new chat if no active chat exists
-  useEffect(() => {
-    if (!activeChatId) {
-      addChat('New Chat');
-    }
-  }, [activeChatId, addChat]);
 
   const handleSend = async (userInput: string) => {
-    if (!activeChatId) return;
-
-    // Add user message
     const userMessage = {
       id: uuidv4(),
-      role: 'user',
+      role: 'user' as const,
       content: userInput,
     };
-    addMessage(activeChatId, userMessage);
+
+    addMessage(userMessage); // Add user message to the chat
 
     try {
       const res = await fetch('/api/chat', {
@@ -41,17 +28,18 @@ export default function ChatPage() {
 
       const assistantMessage = {
         id: uuidv4(),
-        role: 'assistant',
+        role: 'assistant' as const,
         content: data.result,
       };
-      addMessage(activeChatId, assistantMessage);
+
+      addMessage(assistantMessage);
     } catch (err) {
       const errorMessage = {
         id: uuidv4(),
-        role: 'assistant',
+        role: 'assistant' as const,
         content: '❌ Something went wrong.',
       };
-      addMessage(activeChatId, errorMessage);
+      addMessage(errorMessage);
     }
   };
 

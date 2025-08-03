@@ -7,8 +7,8 @@ import { useState, useEffect } from 'react';
 const Sidebar = () => {
   const chats = useChatStore((state) => state.chats);
   const setActiveChat = useChatStore((state) => state.setActiveChat);
-  const addChat = useChatStore((state) => state.addChat);
   const activeChatId = useChatStore((state) => state.activeChatId);
+  const deleteChat = useChatStore((state) => state.deleteChat);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -38,10 +38,14 @@ const Sidebar = () => {
       <aside className={`${styles.sidebar} ${isOpen ? styles.open : ''}`}>
         <h2 className={styles.title}>Conversations</h2>
 
-        <button className={styles.newButton} onClick={() => addChat('New Chat')}>
-          + New Chat
+        {/* New chat button */}
+        <button
+          onClick={() => setActiveChat(null)} className={styles.newButton}>
+          New Chat
         </button>
-
+        {/* Chat list */}
+        <h2 className={styles.title}>Chats</h2>
+   
         <ul className={styles.list}>
           {chats.map((chat) => (
             <li
@@ -49,7 +53,16 @@ const Sidebar = () => {
               className={`${styles.item} ${chat.id === activeChatId ? styles.active : ''}`}
               onClick={() => setActiveChat(chat.id)}
             >
-              {chat.title}
+                <span onClick={() => setActiveChat(chat.id)} className={styles.chatTitle}>
+                {chat.title}
+              </span>
+              <button
+                className={styles.deleteButton}
+                onClick={() => deleteChat(chat.id)}
+                title="Delete chat"
+              >
+                ✕
+              </button>
             </li>
           ))}
         </ul>
