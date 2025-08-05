@@ -1,36 +1,98 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+ GBT Generator – ChatGPT-like App
+    A lightweight, responsive AI chat interface built with Next.js App Router, Zustand for state management, and styled with vanilla CSS. Messages are stored per chat, and users can start, continue, or delete conversations — just like ChatGPT!
 
-## Getting Started
+ Features
+    ✅ Start new chat
 
-First, run the development server:
+    ✅ Per-chat message history
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+    ✅ Chat titles auto-generate from user’s first message
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+    ✅ Delete chats
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+    ✅ Sidebar chat list with active highlight
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+    ✅ Responsive design (mobile + desktop)
 
-## Learn More
+    ✅ Zustand store for managing chats/messages
 
-To learn more about Next.js, take a look at the following resources:
+ Project Structure
+    pgsql
+    Copy
+    Edit
+    GBT-generator/
+    │
+    ├── app/
+    │   ├── api/
+    │   │   └── chat/route.ts       # API route for fetching assistant responses
+    │   ├── chat/
+    │   │   └── page.tsx            # Main chat interface
+    │   ├── layout.tsx              # Root layout wrapper
+    │   └── globals.css             # Global styles
+    │
+    ├── components/
+    │   ├── ChatInput.tsx           # Text input + send button
+    │   ├── ChatMessages.tsx        # List of chat messages
+    │   ├── Sidebar.tsx             # Sidebar with chat list
+    │   └── Sidebar.module.css      # Sidebar styles
+    │
+    ├── store/
+    │   └── chatStore.ts            # Zustand store (chat/message state)
+    │
+    ├── types/
+    │   └── message.ts              # Message types (optional, not always used)
+    │
+    └── public/
+        └── favicon.ico            # Favicon (optional)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+ Getting Started
 
-## Deploy on Vercel
+1. Clone the repo
+    bash
+    Copy
+    Edit
+    git clone https://github.com/your-username/GBT-generator.git
+    cd GBT-generator
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. Install dependencies
+    bash
+    Copy
+    Edit
+    npm install
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. Run development server
+    bash
+    Copy
+    Edit
+    npm run dev
+    Open your browser at http://localhost:3000.
+
+ How It Works
+    When the user sends a message, if there’s no active chat, a new chat is created.
+
+    The first user message becomes the chat title (up to 30 characters).
+
+    The assistant's response is fetched from /api/chat, which returns a simple AI response (placeholder for OpenAI API).
+
+    Messages are stored in Zustand’s centralized store, associated with their chat.
+
+    Users can switch chats using the sidebar or delete them.
+
+    No chat is shown in the sidebar until the user types the first message — avoids clutter.
+
+ Dependencies
+    Next.js 14+ (App Router)
+
+    Zustand
+
+    uuid – for unique message/chat IDs
+
+ Notes
+    This is a front-end only project — the chat backend in /api/chat is mocked.
+
+    To connect to OpenAI or another backend, update /api/chat/route.ts.
+
+ License
+    MIT — free for personal or commercial use.
+
