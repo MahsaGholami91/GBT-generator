@@ -1,98 +1,108 @@
- GBT Generator – ChatGPT-like App
-    A lightweight, responsive AI chat interface built with Next.js App Router, Zustand for state management, and styled with vanilla CSS. Messages are stored per chat, and users can start, continue, or delete conversations — just like ChatGPT!
+🧠 GBT Generator – ChatGPT-like App
+A lightweight, responsive AI chat interface built with Next.js App Router, Zustand for state management, and styled with vanilla CSS.
+Users can start, continue, or delete conversations — just like ChatGPT. Conversations and messages are stored per chat session.
 
- Features
-    ✅ Start new chat
+🌐 Live Demo
 
-    ✅ Per-chat message history
+✨ Features
+✅ Start new chat
 
-    ✅ Chat titles auto-generate from user’s first message
+✅ Per-chat message history
 
-    ✅ Delete chats
+✅ Auto-generated chat titles from the first user message
 
-    ✅ Sidebar chat list with active highlight
+✅ Delete chats
 
-    ✅ Responsive design (mobile + desktop)
+✅ Sidebar chat list with active chat highlighting
 
-    ✅ Zustand store for managing chats/messages
+✅ Responsive design (mobile + desktop)
 
- Project Structure
-    pgsql
-    Copy
-    Edit
-    GBT-generator/
-    │
-    ├── app/
-    │   ├── api/
-    │   │   └── chat/route.ts       # API route for fetching assistant responses
-    │   ├── chat/
-    │   │   └── page.tsx            # Main chat interface
-    │   ├── layout.tsx              # Root layout wrapper
-    │   └── globals.css             # Global styles
-    │
-    ├── components/
-    │   ├── ChatInput.tsx           # Text input + send button
-    │   ├── ChatMessages.tsx        # List of chat messages
-    │   ├── Sidebar.tsx             # Sidebar with chat list
-    │   └── Sidebar.module.css      # Sidebar styles
-    │
-    ├── store/
-    │   └── chatStore.ts            # Zustand store (chat/message state)
-    │
-    ├── types/
-    │   └── message.ts              # Message types (optional, not always used)
-    │
-    └── public/
-        └── favicon.ico            # Favicon (optional)
+✅ Centralized state with Zustand
 
-
- Getting Started
-
-1. Clone the repo
-    bash
-    Copy
-    Edit
-    git clone https://github.com/your-username/GBT-generator.git
-    cd GBT-generator
-
+📁 Project Structure
+pgsql
+Copy
+Edit
+GBT-generator/
+│
+├── app/
+│   ├── api/
+│   │   └── chat/route.ts       # API route for fetching assistant responses
+│   ├── chat/
+│   │   └── page.tsx            # Main chat interface
+│   ├── layout.tsx              # Root layout wrapper
+│   └── globals.css             # Global styles
+│
+├── components/
+│   ├── ChatInput.tsx           # Text input + send button
+│   ├── ChatMessages.tsx        # List of chat messages
+│   ├── Sidebar.tsx             # Sidebar with chat list
+│   └── Sidebar.module.css      # Sidebar styles
+│
+├── store/
+│   └── chatStore.ts            # Zustand store (chat/message state)
+│
+├── types/
+│   └── message.ts              # Type definitions (optional)
+│
+└── public/
+    └── favicon.ico             # App icon (optional)
+🚀 Getting Started
+1. Clone the repository
+bash
+Copy
+Edit
+git clone https://github.com/your-username/GBT-generator.git
+cd GBT-generator
 2. Install dependencies
-    bash
-    Copy
-    Edit
-    npm install
+bash
+Copy
+Edit
+npm install
+3. Add environment variable
+Create a .env.local file in the root:
 
-3. Run development server
-    bash
-    Copy
-    Edit
-    npm run dev
-    Open your browser at http://localhost:3000.
+env
+Copy
+Edit
+OPENAI_API_KEY=your_openai_api_key_here
+This key is required for making requests to OpenAI.
 
- How It Works
-    When the user sends a message, if there’s no active chat, a new chat is created.
+4. Run development server
+bash
+Copy
+Edit
+npm run dev
+Open your browser at: http://localhost:3000
 
-    The first user message becomes the chat title (up to 30 characters).
+⚙️ How It Works
+When a message is sent and no active chat exists, a new chat is created.
 
-    The assistant's response is fetched from /api/chat, which returns a simple AI response (placeholder for OpenAI API).
+The first user message is used as the chat title (max 30 characters).
 
-    Messages are stored in Zustand’s centralized store, associated with their chat.
+The assistant response is fetched from /api/chat, which calls the OpenAI API.
 
-    Users can switch chats using the sidebar or delete them.
+Messages are saved in Zustand’s store, scoped per chat.
 
-    No chat is shown in the sidebar until the user types the first message — avoids clutter.
+Chats are listed in the sidebar after the first message is sent.
 
- Dependencies
-    Next.js 14+ (App Router)
+Chats can be deleted anytime.
 
-    Zustand
+📦 Dependencies
+Next.js 14 (App Router)
 
-    uuid – for unique message/chat IDs
+React
 
- Notes
-    This is a front-end only project — the chat backend in /api/chat is mocked.
+Zustand – for state management
 
-    To connect to OpenAI or another backend, update /api/chat/route.ts.
+uuid – for generating unique IDs
 
- License
-    MIT — free for personal or commercial use.
+📌 Notes
+This is a frontend-only app using Next.js serverless functions.
 
+The /api/chat route uses the OpenAI API – ensure you have a valid API key.
+
+No messages are stored on a server — all state is client-side.
+
+🪪 License
+MIT — Free to use for personal or commercial project
