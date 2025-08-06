@@ -2,7 +2,8 @@
 A lightweight, responsive AI chat interface built with Next.js App Router, Zustand for state management, and styled with vanilla CSS.
 Users can start, continue, or delete conversations — just like ChatGPT. Conversations and messages are stored per chat session.
 
-🌐 Live Demo
+🌐 [![Live Demo](https://img.shields.io/badge/Live-Demo-blue?style=for-the-badge)](https://gbt-generator.vercel.app)
+
 
 ✨ Features
 ✅ Start new chat
